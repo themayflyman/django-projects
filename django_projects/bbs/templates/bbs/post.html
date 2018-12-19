@@ -1,3 +1,6 @@
 <h1>{{ post.subject }}</h1>
-<b>{{ post.author }}</b>
-<p>{{ post.content }}</p>
+<p>{{ post.author }}: {{ post.content }} {% with view.kwargs.x as x%}<a href="{% url 'bbs:comment' x=x pk=post.id %}">Comment</a>{% endwith %}</p>
+{% for comment in post.comment_set.all %}
+<p>{{ comment.author }}: {{ comment.content }}</p>
+{% endfor %}
+

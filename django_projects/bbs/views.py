@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
-from .models import Board, Post
+from .models import Board, Post, Comment
 
 
 class IndexView(generic.ListView):
@@ -26,7 +26,7 @@ class BoardView(generic.ListView):
 class NewPostView(LoginRequiredMixin, generic.CreateView):
     login_url = '/accounts/login'
     model = Post
-    fields = ['subject', 'content']
+    fields = ['subject', 'content', 'image']
     template_name = 'bbs/new_post.html'
 
     def form_valid(self, form):
@@ -40,3 +40,17 @@ class NewPostView(LoginRequiredMixin, generic.CreateView):
 class PostView(generic.DetailView):
     model = Post
     template_name = 'bbs/post.html'
+
+
+class CommentView(LoginRequiredMixin, generic.CreateView):
+    login_url = '/accounts/login'
+    model = Comment
+    fields = ['content', 'image']
+    template_name = 'bbs/comment.html'
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.post_id = self.kwargs['pk']
+        self.success_url = reverse('bbs:board', args=(self.kwargs['x'],))
+
+        return super(CommentView, self).form_valid(form)
