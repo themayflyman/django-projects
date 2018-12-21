@@ -1,6 +1,10 @@
+{% extends 'bbs/base.html' %}
+
+{% block post %}
 <h1>{{ post.subject }}</h1>
 <p>{{ post.author }}: {{ post.content }} {% with view.kwargs.x as x%}<a href="{% url 'bbs:comment' x=x pk=post.id %}">Comment</a>{% endwith %}</p>
 {% for comment in post.comment_set.all %}
 <p>{{ comment.author }}: {{ comment.content }}</p>
 {% endfor %}
+{% endblock %}
 

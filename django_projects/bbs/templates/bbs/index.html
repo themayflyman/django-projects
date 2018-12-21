@@ -1,3 +1,6 @@
+{% extends 'bbs/base.html' %}
+
+{% block index %}
 {% if board_list %}
     <ul>
     {% for board in board_list %}
@@ -9,3 +12,4 @@
 {% else %}
     <p>No boards are available.</p>
 {% endif %}
+{% endblock %}

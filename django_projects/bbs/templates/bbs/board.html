@@ -1,3 +1,6 @@
+{% extends 'bbs/base.html' %}
+
+{% block board %}
 [{% with view.kwargs.x as x%}<a href="{% url 'bbs:new_post' x=x %}">New Post</a>{% endwith %}]
 {% if post_list %}
     <ul>
@@ -10,3 +13,4 @@
 {% else %}
     <p>No posts are available.</p>
 {% endif %}
+{% endblock %}

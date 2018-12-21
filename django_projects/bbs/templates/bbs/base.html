@@ -1,0 +1,11 @@
+{% if user.is_authenticated %}
+<a href="\accounts\logout">logout</a>
+{% else %}
+<p>{{ user.username }}
+<a href="\accounts\login">login</a></p>
+{% endif %}
+{% block index %}{% endblock %}
+{% block board %}{% endblock %}
+{% block post %}{% endblock %}
+{% block comment %}{% endblock %}
+
