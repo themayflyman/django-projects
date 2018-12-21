@@ -51,6 +51,6 @@ class CommentView(LoginRequiredMixin, generic.CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         form.instance.post_id = self.kwargs['pk']
-        self.success_url = reverse('bbs:board', args=(self.kwargs['x'],))
+        self.success_url = reverse('bbs:post', args=(self.kwargs['x'], self.kwargs['pk']))
 
         return super(CommentView, self).form_valid(form)
